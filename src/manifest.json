@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "ScamBomb Gmail Scanner",
+  "version": "0.1.0",
+  "description": "Scan Gmail emails for scams with ScamBomb AI",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://scambomb.com/*",
+    "https://localhost:3000/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://mail.google.com/*"],
+      "js": ["content/inject.ts"],
+      "css": ["content/styles.css"]
+    }
+  ],
+  "background": {
+    "service_worker": "background/service_worker.ts"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "ScamBomb Gmail Scanner"
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}
