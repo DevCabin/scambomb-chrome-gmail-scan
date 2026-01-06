@@ -231,12 +231,81 @@ export class ScamBombModal {
       errorMessage.textContent = error.error;
     }
 
-    // Retry functionality (will be connected to scanning logic)
-    retryButton?.addEventListener('click', () => {
-      // This will be handled by the main scanning logic
-      this.hide();
-      // Trigger retry scan (handled by parent component)
-    });
+    // Handle 402 upgrade prompts specially
+    if (error.code === 402) {
+      this.showUpgradePrompt(error);
+    } else {
+      // Regular error handling
+      if (retryButton) {
+        retryButton.textContent = 'Try Again';
+        retryButton.addEventListener('click', () => {
+          this.hide();
+          // Trigger retry scan (handled by parent component)
+        });
+      }
+    }
+  }
+
+  /**
+   * Show special upgrade prompt for 402 errors
+   */
+  private showUpgradePrompt(error: ScanError): void {
+    if (!this.modal) return;
+
+    const errorState = this.modal.querySelector('.error-state') as HTMLElement;
+    const errorMessage = this.modal.querySelector('.error-message') as HTMLElement;
+    const retryButton = this.modal.querySelector('.retry-button') as HTMLElement;
+
+    // Update error state content for upgrade
+    if (errorMessage) {
+      errorMessage.innerHTML = `
+        ${error.error}<br><br>
+        <strong>Ready to continue scanning?</strong>
+      `;
+    }
+
+    if (retryButton) {
+      retryButton.textContent = 'Upgrade Now';
+      retryButton.style.background = '#ffc107';
+      retryButton.style.color = '#1a365d';
+
+      // Remove existing listeners
+      const newButton = retryButton.cloneNode(true) as HTMLElement;
+      retryButton.parentNode?.replaceChild(newButton, retryButton);
+
+      // Add upgrade link
+      newButton.addEventListener('click', () => {
+        // Open upgrade page in new tab
+        chrome.tabs.create({
+          url: 'https://scambomb.com/upgrade',
+          active: true
+        });
+        this.hide();
+      });
+    }
+
+    // Add additional upgrade link in message
+    if (errorMessage) {
+      const upgradeLink = document.createElement('div');
+      upgradeLink.innerHTML = `
+        <br>
+        <a href="#" class="upgrade-link" style="color: #ffc107; text-decoration: none; font-weight: 600;">
+          Learn more about premium features →
+        </a>
+      `;
+
+      const upgradeLinkElement = upgradeLink.querySelector('.upgrade-link') as HTMLElement;
+      upgradeLinkElement?.addEventListener('click', (e) => {
+        e.preventDefault();
+        chrome.tabs.create({
+          url: 'https://scambomb.com/pricing',
+          active: true
+        });
+        this.hide();
+      });
+
+      errorMessage.appendChild(upgradeLink);
+    }
   }
 }
 
