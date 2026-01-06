@@ -2,8 +2,8 @@
 
 /* Scan button styles */
 #scambomb-scan-button {
-  background: #ff6b35 !important;
-  color: white !important;
+  background: #ffc107 !important;
+  color: #000 !important;
   border: none !important;
   padding: 10px 16px !important;
   border-radius: 6px !important;
@@ -11,18 +11,15 @@
   font-size: 14px !important;
   font-weight: 500 !important;
   position: absolute !important;
-  top: 10px !important;
+  top: 30px !important;
   right: 10px !important;
   z-index: 1000 !important;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
   transition: background-color 0.2s !important;
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
 }
 
 #scambomb-scan-button:hover {
-  background: #e55a2b !important;
+  background: #ffb300 !important;
 }
 
 /* Ensure message container can position button absolutely */

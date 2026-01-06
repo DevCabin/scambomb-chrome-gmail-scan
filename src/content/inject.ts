@@ -47,15 +47,10 @@ class GmailScanner {
     // Create scan button with icon
     const button = document.createElement('button');
     button.id = 'scambomb-scan-button';
-    button.innerHTML = `
-      <span style="display: inline-flex; align-items: center; gap: 6px;">
-        <span style="font-size: 16px;">⚠️</span>
-        <span>Scan with ScamBomb</span>
-      </span>
-    `;
+    button.textContent = 'Scan with ScamBomb';
     button.style.cssText = `
-      background: #ff6b35;
-      color: white;
+      background: #ffc107;
+      color: #000;
       border: none;
       padding: 10px 16px;
       border-radius: 6px;
@@ -63,7 +58,7 @@ class GmailScanner {
       font-size: 14px;
       font-weight: 500;
       position: absolute;
-      top: 10px;
+      top: 30px;
       right: 10px;
       z-index: 1000;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -72,7 +67,7 @@ class GmailScanner {
 
     // Position as overlay on the message container
     button.style.position = 'absolute';
-    button.style.top = '10px';
+    button.style.top = '30px';
     button.style.right = '10px';
 
     // Make container position relative for absolute positioning
@@ -84,10 +79,10 @@ class GmailScanner {
 
     // Add hover effect
     button.addEventListener('mouseenter', () => {
-      button.style.background = '#e55a2b';
+      button.style.background = '#ffb300';
     });
     button.addEventListener('mouseleave', () => {
-      button.style.background = '#ff6b35';
+      button.style.background = '#ffc107';
     });
 
     // Add click handler (placeholder for now)
