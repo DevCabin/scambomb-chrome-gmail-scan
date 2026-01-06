@@ -44,7 +44,7 @@ class GmailScanner {
   }
 
   private injectScanButton(container: HTMLElement) {
-    // Create scan button with icon
+    // Create scan button
     const button = document.createElement('button');
     button.id = 'scambomb-scan-button';
     button.textContent = 'Scan with ScamBomb';
@@ -52,30 +52,36 @@ class GmailScanner {
       background: #ffc107;
       color: #000;
       border: none;
-      padding: 10px 16px;
-      border-radius: 6px;
+      padding: 8px 12px;
+      border-radius: 4px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
-      position: absolute;
-      top: 30px;
-      right: 10px;
-      z-index: 1000;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-left: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       transition: background-color 0.2s;
     `;
 
-    // Position as overlay on the message container
-    button.style.position = 'absolute';
-    button.style.top = '30px';
-    button.style.right = '10px';
+    // Find Gmail's toolbar area and add to the right side
+    const toolbar = container.querySelector('.ha, .hb') || // Gmail toolbar classes
+                   container.closest('[role="toolbar"]') ||
+                   container.querySelector('[data-tooltip="More"]')?.parentElement?.parentElement;
 
-    // Make container position relative for absolute positioning
-    if (container.style.position !== 'relative' && container.style.position !== 'absolute') {
-      container.style.position = 'relative';
+    if (toolbar) {
+      // Insert at the end of the toolbar (right side)
+      toolbar.appendChild(button);
+    } else {
+      // Fallback: position as overlay if toolbar not found
+      button.style.position = 'absolute';
+      button.style.top = '50px';
+      button.style.right = '10px';
+      button.style.zIndex = '1000';
+
+      if (container.style.position !== 'relative' && container.style.position !== 'absolute') {
+        container.style.position = 'relative';
+      }
+      container.appendChild(button);
     }
-
-    container.appendChild(button);
 
     // Add hover effect
     button.addEventListener('mouseenter', () => {
