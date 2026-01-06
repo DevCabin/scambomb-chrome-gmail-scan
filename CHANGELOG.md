@@ -13,17 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Background service worker for API communication
 - TypeScript configuration and Vite build setup
 - Basic project structure and documentation
-- Placeholder "Scan with ScamBomb" button in Gmail interface
+- Polished "Scan with ScamBomb" button with final positioning and styling
 
 ### Technical Details
 - Content script uses MutationObserver for Gmail DOM changes
+- Button positioned as fixed overlay (top: 120px, right: 120px) to avoid Gmail layout conflicts
+- Yellow alert styling (#ffc107) with black text for high visibility
 - Extension permissions limited to activeTab and ScamBomb domains
 - HTTPS-only API communication
 - No local storage of email content
 - Cookie-based authentication support
 
 ### Known Limitations
-- Button injection uses basic Gmail selectors (may need refinement)
-- Scan button shows placeholder alert only
-- No actual API integration or result display
+- Button shows placeholder alert only (M2 will add real functionality)
+- No email extraction or API integration yet
 - No error handling or loading states
+- No modal UI for results display

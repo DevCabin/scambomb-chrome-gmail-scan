@@ -112,7 +112,7 @@ npm run build
 
 ## Development Milestones
 
-- **M1: Skeleton** ✅ - Basic extension structure and Gmail injection
+- **M1: Skeleton** ✅ - Basic extension structure, Gmail injection, and polished button UI
 - **M2: Extraction & UI** - Email data extraction and result modal
 - **M3: API Integration** - Backend API calls and result display
 - **M4: Limits & Upgrade** - Handle usage limits and upgrade flows
@@ -151,4 +151,4 @@ For issues or questions:
 
 ## License
 
-Copyright 2024 DevCabin. All rights reserved.
+Copyright 2026 DevCabin. All rights reserved.
