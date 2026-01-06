@@ -5,7 +5,8 @@
   "description": "Scan Gmail emails for scams with ScamBomb AI",
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+    "cookies"
   ],
   "host_permissions": [
     "https://scambomb.com/*",
