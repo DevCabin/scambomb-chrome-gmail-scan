@@ -58,7 +58,7 @@ class GmailScanner {
       font-size: 13px;
       font-weight: 500;
       position: fixed;
-      top: 120px;
+      top: 180px;
       right: 120px;
       z-index: 10000;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
