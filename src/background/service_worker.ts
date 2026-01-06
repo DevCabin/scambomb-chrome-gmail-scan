@@ -7,7 +7,7 @@ const API_BASE_URL = 'https://scambomb.com';
 const API_ENDPOINT = `${API_BASE_URL}/api/analyze`;
 
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('ScamBomb Gmail extension installed');
+  // Extension installed - no logging in production
 });
 
 /**

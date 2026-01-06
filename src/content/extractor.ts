@@ -15,11 +15,7 @@ export class GmailExtractor {
       const body = this.extractBody();
 
       if (!sender || !subject || !body) {
-        console.warn('ScamBomb: Could not extract complete email data', {
-          sender: !!sender,
-          subject: !!subject,
-          body: !!body
-        });
+        // Could not extract complete email data - no logging in production
         return null;
       }
 
@@ -33,7 +29,7 @@ export class GmailExtractor {
         context: `Gmail extension scan; subject: ${subject.substring(0, 50)}${subject.length > 50 ? '...' : ''}`
       };
     } catch (error) {
-      console.error('ScamBomb: Email extraction failed:', error);
+      // Email extraction failed - no logging in production
       return null;
     }
   }

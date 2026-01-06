@@ -27,6 +27,9 @@
     "default_popup": "popup/popup.html",
     "default_title": "ScamBomb Gmail Scanner"
   },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
   "icons": {
     "16": "icon16.png",
     "32": "icon32.png",

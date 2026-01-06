@@ -134,7 +134,7 @@ class GmailScanner {
       });
 
     } catch (error) {
-      console.error('ScamBomb: Scan click failed:', error);
+      // Scan click failed - no logging in production
       scamBombModal.showError({ error: 'An unexpected error occurred. Please try again.' });
     }
   }
