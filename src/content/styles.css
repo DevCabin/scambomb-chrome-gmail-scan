@@ -1,20 +1,33 @@
 /* Styles for injected UI elements */
 
-/* Scan button styles (inline for now, but can move here later) */
+/* Scan button styles */
 #scambomb-scan-button {
-  background: #dc3545 !important;
+  background: #ff6b35 !important;
   color: white !important;
   border: none !important;
-  padding: 8px 16px !important;
-  border-radius: 4px !important;
+  padding: 10px 16px !important;
+  border-radius: 6px !important;
   cursor: pointer !important;
   font-size: 14px !important;
-  margin-left: 10px !important;
+  font-weight: 500 !important;
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  z-index: 1000 !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
   transition: background-color 0.2s !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
 }
 
 #scambomb-scan-button:hover {
-  background: #c82333 !important;
+  background: #e55a2b !important;
+}
+
+/* Ensure message container can position button absolutely */
+[data-message-id] {
+  position: relative !important;
 }
 
 /* Placeholder for future modal styles */
