@@ -49,9 +49,9 @@ class GmailScanner {
     button.id = 'scambomb-scan-button';
     button.textContent = 'Scan with ScamBomb';
     button.style.cssText = `
-      background: #1a365d;
-      color: #ffc107;
-      border: 2px solid #ffc107;
+      background: #ffc107;
+      color: #1a365d;
+      border: none;
       padding: 8px 12px;
       border-radius: 6px;
       cursor: pointer;
@@ -71,14 +71,12 @@ class GmailScanner {
 
     // Add hover effect
     button.addEventListener('mouseenter', () => {
-      button.style.background = '#ffc107';
-      button.style.color = '#1a365d';
+      button.style.background = '#e6b800';
       button.style.transform = 'translateY(-1px)';
       button.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
     });
     button.addEventListener('mouseleave', () => {
-      button.style.background = '#1a365d';
-      button.style.color = '#ffc107';
+      button.style.background = '#ffc107';
       button.style.transform = 'translateY(0)';
       button.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
     });
