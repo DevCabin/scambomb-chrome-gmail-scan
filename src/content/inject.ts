@@ -49,11 +49,11 @@ class GmailScanner {
     button.id = 'scambomb-scan-button';
     button.textContent = 'Scan with ScamBomb';
     button.style.cssText = `
-      background: #ffc107;
-      color: #000;
-      border: none;
+      background: #1a365d;
+      color: #ffc107;
+      border: 2px solid #ffc107;
       padding: 8px 12px;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
       font-size: 13px;
       font-weight: 500;
@@ -62,7 +62,8 @@ class GmailScanner {
       right: 120px;
       z-index: 10000;
       box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-      transition: background-color 0.2s;
+      transition: all 0.2s;
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     `;
 
     // Insert as fixed overlay in top-right corner, below Gmail header
@@ -70,10 +71,16 @@ class GmailScanner {
 
     // Add hover effect
     button.addEventListener('mouseenter', () => {
-      button.style.background = '#ffb300';
+      button.style.background = '#ffc107';
+      button.style.color = '#1a365d';
+      button.style.transform = 'translateY(-1px)';
+      button.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
     });
     button.addEventListener('mouseleave', () => {
-      button.style.background = '#ffc107';
+      button.style.background = '#1a365d';
+      button.style.color = '#ffc107';
+      button.style.transform = 'translateY(0)';
+      button.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
     });
 
     // Add click handler (placeholder for now)
@@ -90,13 +97,37 @@ class GmailScanner {
     this.buttonInjected = false;
   }
 
-  destroy() {
+  public updateButtonVisibility() {
+    const button = document.getElementById('scambomb-scan-button') as HTMLElement;
+    if (button) {
+      chrome.storage.local.get(['scambomb_disabled_until'], (result) => {
+        const disabledUntil = result.scambomb_disabled_until || 0;
+        const isDisabled = Date.now() < disabledUntil;
+
+        if (isDisabled) {
+          button.style.display = 'none';
+        } else {
+          button.style.display = 'inline-flex';
+        }
+      });
+    }
+  }
+
+  private destroy() {
     if (this.observer) {
       this.observer.disconnect();
     }
     this.removeScanButton();
   }
 }
+
+// Listen for messages from popup/background
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === 'updateVisibility') {
+    const scanner = new GmailScanner();
+    scanner.updateButtonVisibility();
+  }
+});
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {

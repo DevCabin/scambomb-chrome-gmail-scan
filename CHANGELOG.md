@@ -5,6 +5,35 @@ All notable changes to the ScamBomb Gmail Chrome Extension will be documented in
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2024-01-XX
+
+### Added
+- **Extension popup menu** with disable options (1h, 1d, 1w) and account link
+- **Brand styling** applied throughout - dark blue backgrounds with yellow highlights
+- **Montserrat font** integration from Google Fonts
+- Chrome storage persistence for disable state across browser sessions
+- Message passing between popup and content script for real-time updates
+
+### Changed
+- **Button styling** updated to match ScamBomb brand (dark blue + yellow)
+- **Popup theme** changed to professional dark blue with yellow accents
+- Account link updated from `/account` to `scambomb.com` (404 fix)
+- Improved button positioning and hover effects
+
+### Technical Details
+- Content script uses MutationObserver for Gmail DOM changes
+- Button positioned as fixed overlay (top: 120px, right: 120px) to avoid Gmail layout conflicts
+- Brand colors: Dark blue (#1a365d) backgrounds, yellow (#ffc107) highlights
+- Extension permissions: activeTab, storage, host permissions for ScamBomb domains
+- HTTPS-only API communication, no local storage of email content
+- Cookie-based authentication support
+
+### Known Limitations
+- Button shows placeholder alert only (M2 will add real functionality)
+- No email extraction or API integration yet
+- No error handling or loading states
+- No modal UI for results display
+
 ## [0.1.0] - 2024-01-XX
 
 ### Added

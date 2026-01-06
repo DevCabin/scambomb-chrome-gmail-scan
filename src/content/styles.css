@@ -2,11 +2,11 @@
 
 /* Scan button styles */
 #scambomb-scan-button {
-  background: #ffc107 !important;
-  color: #000 !important;
-  border: none !important;
+  background: #1a365d !important;
+  color: #ffc107 !important;
+  border: 2px solid #ffc107 !important;
   padding: 8px 12px !important;
-  border-radius: 4px !important;
+  border-radius: 6px !important;
   cursor: pointer !important;
   font-size: 13px !important;
   font-weight: 500 !important;
@@ -15,11 +15,15 @@
   right: 120px !important;
   z-index: 10000 !important;
   box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
-  transition: background-color 0.2s !important;
+  transition: all 0.2s !important;
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 #scambomb-scan-button:hover {
-  background: #ffb300 !important;
+  background: #ffc107 !important;
+  color: #1a365d !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
 }
 
 /* Ensure message container can position button absolutely */
