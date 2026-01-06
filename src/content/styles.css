@@ -10,8 +10,11 @@
   cursor: pointer !important;
   font-size: 13px !important;
   font-weight: 500 !important;
-  margin-left: 8px !important;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+  position: fixed !important;
+  top: 120px !important;
+  right: 20px !important;
+  z-index: 10000 !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
   transition: background-color 0.2s !important;
 }
 

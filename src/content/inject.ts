@@ -57,31 +57,16 @@ class GmailScanner {
       cursor: pointer;
       font-size: 13px;
       font-weight: 500;
-      margin-left: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 120px;
+      right: 20px;
+      z-index: 10000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
       transition: background-color 0.2s;
     `;
 
-    // Find Gmail's toolbar area and add to the right side
-    const toolbar = container.querySelector('.ha, .hb') || // Gmail toolbar classes
-                   container.closest('[role="toolbar"]') ||
-                   container.querySelector('[data-tooltip="More"]')?.parentElement?.parentElement;
-
-    if (toolbar) {
-      // Insert at the end of the toolbar (right side)
-      toolbar.appendChild(button);
-    } else {
-      // Fallback: position as overlay if toolbar not found
-      button.style.position = 'absolute';
-      button.style.top = '50px';
-      button.style.right = '10px';
-      button.style.zIndex = '1000';
-
-      if (container.style.position !== 'relative' && container.style.position !== 'absolute') {
-        container.style.position = 'relative';
-      }
-      container.appendChild(button);
-    }
+    // Insert as fixed overlay in top-right corner, below Gmail header
+    document.body.appendChild(button);
 
     // Add hover effect
     button.addEventListener('mouseenter', () => {
