@@ -1,6 +1,10 @@
 // Content script for Gmail integration
 // Detects when an email is open and injects the ScamBomb scan button
 
+import { GmailExtractor } from './extractor';
+import { scamBombModal } from './modal';
+import { ScanRequest, ScanResponse, ScanError } from '../types/api';
+
 class GmailScanner {
   private observer: MutationObserver | null = null;
   private buttonInjected = false;
@@ -81,9 +85,9 @@ class GmailScanner {
       button.style.boxShadow = '0 2px 8px rgba(0,0,0,0.15)';
     });
 
-    // Add click handler (placeholder for now)
-    button.addEventListener('click', () => {
-      alert('ScamBomb scan initiated! (Placeholder)');
+    // Add click handler with full scanning flow
+    button.addEventListener('click', async () => {
+      await this.handleScanClick();
     });
   }
 
@@ -93,6 +97,46 @@ class GmailScanner {
       button.remove();
     }
     this.buttonInjected = false;
+  }
+
+  /**
+   * Handle scan button click - extract data, show modal, send to background
+   */
+  private async handleScanClick(): Promise<void> {
+    try {
+      // Extract email data
+      const emailData = GmailExtractor.extractEmailData();
+      if (!emailData) {
+        scamBombModal.showError({ error: 'Could not extract email data. Please try refreshing the page.' });
+        return;
+      }
+
+      // Show loading modal with fuse animation
+      scamBombModal.showLoading();
+
+      // Send scan request to background service worker
+      chrome.runtime.sendMessage({
+        action: 'scanEmail',
+        emailData: emailData
+      }, (response) => {
+        if (chrome.runtime.lastError) {
+          scamBombModal.showError({ error: 'Extension communication error. Please try again.' });
+          return;
+        }
+
+        if (response?.error) {
+          scamBombModal.showError(response.error);
+        } else if (response?.result) {
+          scamBombModal.showResults(response.result);
+        } else {
+          scamBombModal.showError({ error: 'Unexpected response from scan service.' });
+        }
+      });
+
+    } catch (error) {
+      console.error('ScamBomb: Scan click failed:', error);
+      scamBombModal.showError({ error: 'An unexpected error occurred. Please try again.' });
+    }
   }
 
   public updateButtonVisibility() {
